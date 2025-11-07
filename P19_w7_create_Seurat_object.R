@@ -11,7 +11,7 @@ library(patchwork)
 data10x <- Read10X('/Users/majagabric/Documents/PhD/Data analysis/Popescu et al., 2019/Popescu et al., 2019/aggrData/Pop7_aggr/count/filtered_feature_bc_matrix')
 seurat_obj_w7 <- CreateSeuratObject(data10x, 
                                  min.cells = 3, min.features = 200, 
-                                 project = "Popescu_w7_2019")
+                                 project = "Popescu2019_w7")
 
 ##### Add sample_id metadata #####
 aggr_metadata <- read.csv('/Users/majagabric/Documents/PhD/Data analysis/Popescu et al., 2019/Popescu et al., 2019/aggrData/Pop7_aggr/aggregation.csv')
