@@ -13,7 +13,7 @@ seurat_obj_w4 <- CreateSeuratObject(data10x,
                                  min.cells = 3, min.features = 200, 
                                  project = "Popescu2019_w4")
 
-##### Add sample_id metadata #####
+##### Add metadata #####
 aggr_metadata <- read.csv('/Users/majagabric/Documents/PhD/Data analysis/Popescu et al., 2019/Popescu et al., 2019/aggrData/Pop4_aggr/aggregation.csv')
 
 barcode_suffix <- sub(".*-(\\d+)$", "\\1", colnames(seurat_obj_w4))
@@ -36,13 +36,6 @@ names(sample_id) <- colnames(seurat_obj_w4)
 # add sample_id to the metadata
 seurat_obj_w4 <- AddMetaData(seurat_obj_w4, metadata = sample_id, col.name = "sample_id")
 
-##### Save Seurat object #####
-saveRDS(seurat_obj_w4, file="P19_w4_seurat_obj.rds")
-
-##### Load Seurat object #####
-seurat_obj_w4 <- readRDS('/Users/majagabric/Documents/PhD/Data analysis/Popescu et al., 2019/Popescu et al., 2019/P19_w4_seurat_obj.rds')
-
-##### Add metadata #####
 # Get the cell tags
 barcodes <- colnames(seurat_obj_w4)
 
@@ -56,11 +49,17 @@ seurat_obj_w4$Sample <- sapply(strsplit(barcodes, "-"), function(x){return(x[2])
 # We can now create the other metadata depending on Sample
 # Define sex for each sample then create the Sex metadata accordingly
 seurat_obj_w4$Sample <- as.numeric(seurat_obj_w4$Sample)
-sex_metadata <- c("F", "F", "F", "F", "F")
+
+sex_metadata <- "F"
+
 seurat_obj_w4$Sex <- sex_metadata[seurat_obj_w4$Sample]
+
 seurat_obj_w4$Week_gestation <- 4
+
 seurat_obj_w4$Tissue <- "YS"
 
 ##### Save Seurat object #####
-saveRDS(seurat_obj_w4, file="P19_w4_seurat_obj.rds")
+saveRDS(seurat_obj_w4, file="P19_w4_seurat_obj_preQC.rds")
 
+##### Load Seurat object #####
+seurat_obj_w4 <- readRDS('/Users/majagabric/Documents/PhD/Data analysis/Popescu et al., 2019/Popescu et al., 2019/P19_w4_seurat_obj_preQC.rds')
