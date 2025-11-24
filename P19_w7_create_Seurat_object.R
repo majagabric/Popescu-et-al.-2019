@@ -13,7 +13,7 @@ seurat_obj_w7 <- CreateSeuratObject(data10x,
                                  min.cells = 3, min.features = 200, 
                                  project = "Popescu2019_w7")
 
-##### Add sample_id metadata #####
+##### Add metadata #####
 aggr_metadata <- read.csv('/Users/majagabric/Documents/PhD/Data analysis/Popescu et al., 2019/Popescu et al., 2019/aggrData/Pop7_aggr/aggregation.csv')
 
 barcode_suffix <- sub(".*-(\\d+)$", "\\1", colnames(seurat_obj_w7))
@@ -39,13 +39,6 @@ names(sample_id) <- colnames(seurat_obj_w7)
 # add sample_id to the metadata
 seurat_obj_w7 <- AddMetaData(seurat_obj_w7, metadata = sample_id, col.name = "sample_id")
 
-##### Save Seurat object #####
-saveRDS(seurat_obj_w7, file="P19_w7_seurat_obj.rds")
-
-##### Load Seurat object #####
-seurat_obj_w7 <- readRDS('/Users/majagabric/Documents/PhD/Data analysis/Popescu et al., 2019/Popescu et al., 2019/P19_w7_seurat_obj.rds')
-
-##### Add metadata #####
 # Get the cell tags
 barcodes <- colnames(seurat_obj_w7)
 
@@ -70,7 +63,11 @@ seurat_YS <- subset(seurat_obj_w7, subset = grepl("^YS", sample_id))
 # add tissue metadata
 seurat_obj_w7$Tissue <- ifelse(grepl("^FL", seurat_obj_w7$sample_id), "FL", "YS")
 
+
 ##### Save Seurat object #####
-saveRDS(seurat_obj_w7, file="P19_w7_seurat_obj.rds")
+saveRDS(seurat_obj_w7, file="P19_w7_seurat_obj_preQC.rds")
+
+##### Load Seurat object #####
+seurat_obj_w7 <- readRDS('/Users/majagabric/Documents/PhD/Data analysis/Popescu et al., 2019/Popescu et al., 2019/P19_w7_seurat_obj_preQC.rds')
 
 

@@ -13,7 +13,7 @@ seurat_obj_w14 <- CreateSeuratObject(data10x,
                                      min.cells = 3, min.features = 200, 
                                      project = "Popescu2019_w14")
 
-##### Add sample_id metadata #####
+##### Add metadata #####
 aggr_metadata <- read.csv('/Users/majagabric/Documents/PhD/Data analysis/Popescu et al., 2019/Popescu et al., 2019/aggrData/Pop14_aggr/aggregation.csv')
 
 barcode_suffix <- sub(".*-(\\d+)$", "\\1", colnames(seurat_obj_w14))
@@ -34,13 +34,6 @@ names(sample_id) <- colnames(seurat_obj_w14)
 # add sample_id to the metadata
 seurat_obj_w14 <- AddMetaData(seurat_obj_w14, metadata = sample_id, col.name = "sample_id")
 
-##### Save Seurat object #####
-saveRDS(seurat_obj_w14, file="P19_w14_seurat_obj.rds")
-
-##### Load Seurat object #####
-seurat_obj_w14 <- readRDS('/Users/majagabric/Documents/PhD/Data analysis/Popescu et al., 2019/Popescu et al., 2019/P19_w14_seurat_obj.rds')
-
-##### Add metadata #####
 # Get the cell tags
 barcodes <- colnames(seurat_obj_w14)
 
@@ -61,8 +54,8 @@ seurat_obj_w14$Sex <- sex_metadata[seurat_obj_w14$Sample]
 seurat_obj_w14$Week_gestation <- 14
 seurat_obj_w14$Tissue <- "FL"
 
-
 ##### Save Seurat object #####
-saveRDS(seurat_obj_w14, file="P19_w14_seurat_obj.rds")
+saveRDS(seurat_obj_w14, file="P19_w14_seurat_obj_preQC.rds")
 
-
+##### Load Seurat object #####
+seurat_obj_w14 <- readRDS('/Users/majagabric/Documents/PhD/Data analysis/Popescu et al., 2019/Popescu et al., 2019/P19_w14_seurat_obj_preQC.rds')
