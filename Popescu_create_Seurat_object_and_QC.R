@@ -172,19 +172,19 @@ seurat_obj <- RunPCA(seurat_obj, npcs = 50)
 
 ElbowPlot(seurat_obj, ndims = ncol(Embeddings(seurat_obj, "pca")))
 
-
 ##### Load Seurat object #####
-seurat_obj <- readRDS('/Users/majagabric/Documents/PhD/Data analysis/Calvanese et al., 2022/Calvanese et al., 2022/Calvanese_suerat_obj_postPCA.rds')
+seurat_obj <- readRDS('/Users/majagabric/Documents/PhD/Data analysis/Popescu et al., 2019/Popescu et al., 2019/Popescu_seurat_obj_postPCA.rds')
 
 
 # UMAP and tSNE
-seurat_obj <- RunTSNE(seurat_obj, dims = 1:28)
-seurat_obj <- RunUMAP(seurat_obj, dims = 1:28)
+seurat_obj <- RunTSNE(seurat_obj, dims = 1:11)
+seurat_obj <- RunUMAP(seurat_obj, dims = 1:11)
 
 plot1 <- TSNEPlot(seurat_obj)
 plot2 <- UMAPPlot(seurat_obj)
-plot1 + plot2
+plots <- plot1 + plot2
+ggsave("Popescu_tSNE_UMAP.png", plots, width = 10, height = 6, dpi = 300)
 
 ##### Save Seurat object #####
-saveRDS(seurat_obj, file="Calvanese_Seurat_object.rds")
+saveRDS(seurat_obj, file="Popescu_Seurat_object.rds")
 
