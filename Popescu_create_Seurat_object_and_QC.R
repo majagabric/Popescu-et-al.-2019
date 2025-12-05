@@ -170,15 +170,12 @@ seurat_obj <- SCTransform(seurat_obj, vst.flavor = "v2", verbose = TRUE)
 # PCA
 seurat_obj <- RunPCA(seurat_obj, npcs = 50)
 
-ElbowPlot(seurat_obj, ndims = ncol(Embeddings(seurat_obj, "pca")))
-
-##### Load Seurat object #####
-seurat_obj <- readRDS('/Users/majagabric/Documents/PhD/Data analysis/Popescu et al., 2019/Popescu et al., 2019/Popescu_seurat_obj_postPCA.rds')
-
+elbow <- ElbowPlot(seurat_obj, ndims = ncol(Embeddings(seurat_obj, "pca")))
+ggsave("Popescu_ElbowPlot.png", elbow, width = 6, height = 4, dpi = 300)
 
 # UMAP and tSNE
-seurat_obj <- RunTSNE(seurat_obj, dims = 1:11)
-seurat_obj <- RunUMAP(seurat_obj, dims = 1:11)
+seurat_obj <- RunTSNE(seurat_obj, dims = 1:29)
+seurat_obj <- RunUMAP(seurat_obj, dims = 1:29)
 
 plot1 <- TSNEPlot(seurat_obj)
 plot2 <- UMAPPlot(seurat_obj)
@@ -186,5 +183,6 @@ plots <- plot1 + plot2
 ggsave("Popescu_tSNE_UMAP.png", plots, width = 10, height = 6, dpi = 300)
 
 ##### Save Seurat object #####
-saveRDS(seurat_obj, file="Popescu_Seurat_object.rds")
+saveRDS(seurat_obj, file="Popescu_Seurat_object_postQC.rds")
+saveRDS(seurat_obj, file="Popescu_Seurat_object_preCluster.rds")
 
